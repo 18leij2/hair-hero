@@ -998,7 +998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8956300396695678033, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
       propertyPath: blastRadius
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8956300396695678033, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
       propertyPath: stunDuration
