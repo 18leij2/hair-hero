@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2494243357651619668}
   - component: {fileID: 2494243357651619675}
   - component: {fileID: 2494243357651619671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -152,6 +152,7 @@ MonoBehaviour:
   target: {fileID: 0}
   health: 0
   zombieSpeed: 0
+  chase: 0
 --- !u!1 &3564946306118521849
 GameObject:
   m_ObjectHideFlags: 0

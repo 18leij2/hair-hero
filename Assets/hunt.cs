@@ -11,6 +11,7 @@ public class hunt : MonoBehaviour
     public float zombieSpeed;
     private bool zoneDamage = false;
     public bool chase;
+    private bool stunned;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +27,12 @@ public class hunt : MonoBehaviour
 
     void FixedUpdate()
     {
-        Movement();
+        if (!stunned)
+        {
+            Movement();
+            changeDirection();
+        }
         zombHP();
-        changeDirection();
     }
 
     void zombHP()
@@ -116,5 +120,17 @@ public class hunt : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         health += (rb.mass / 600) * Time.deltaTime;
+    }
+
+    public void Stun(float time)
+    {
+        StartCoroutine(StunCoroutine(time));
+    }
+
+    private IEnumerator StunCoroutine(float time)
+    {
+        stunned = true;
+        yield return new WaitForSeconds(time);
+        stunned = false;
     }
 }

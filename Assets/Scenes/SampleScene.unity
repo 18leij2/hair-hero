@@ -932,6 +932,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8956300396361012588, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8956300396361012591, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
       propertyPath: ammotxt
       value: 
@@ -988,6 +992,18 @@ PrefabInstance:
       propertyPath: shieldtxt
       value: 
       objectReference: {fileID: 127107833}
+    - target: {fileID: 8956300396695678033, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
+      propertyPath: blastForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8956300396695678033, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
+      propertyPath: blastRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8956300396695678033, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
+      propertyPath: stunDuration
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bd9066fbdc964049a82afe117cd39c0, type: 3}
 --- !u!1 &1808447158

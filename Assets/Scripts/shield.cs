@@ -9,6 +9,9 @@ public class shield : MonoBehaviour
     public bool charged = true;
     public bool shieldActive = false;
     public Text shieldtxt;
+    public float blastRadius;
+    public float blastForce;
+    public float stunDuration;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +26,19 @@ public class shield : MonoBehaviour
     {
        if (Input.GetKeyDown("s") && charged)
           {
+            Blast();
             StartCoroutine(shieldAct(3f));
           }
+    }
+
+    void Blast()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, blastRadius, LayerMask.GetMask("Enemy"));
+        foreach (Collider2D c in hits)
+        {
+            c.GetComponent<hunt>().Stun(stunDuration);
+            c.GetComponent<Rigidbody2D>().velocity = ((c.transform.position - transform.position).normalized * blastForce);
+        }
     }
 
     IEnumerator shieldAct(float duration)
