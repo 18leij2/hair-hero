@@ -16,11 +16,15 @@ public class movement : MonoBehaviour
     public Rigidbody2D rb;
     public ParticleSystem particleFx;
 
+    public Animator playerAnimator;
+    private bool isJumping = false;
+
     // Start is called before the first frame update
     void Start()
     {
         var emission = particleFx.emission;
         emission.rateOverTime = 0;
+        playerAnimator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -38,10 +42,14 @@ public class movement : MonoBehaviour
             fuel -= (0.5f *Time.deltaTime);
             var emission = particleFx.emission;
             emission.rateOverTime = 50;
+            playerAnimator.SetBool("Jumping", true);
+            isJumping = true;
         } else
         {
             var emission = particleFx.emission;
             emission.rateOverTime = 0;
+            playerAnimator.SetBool("Jumping", false);
+            isJumping = false;
         }
 
         if (onGround)
@@ -70,19 +78,28 @@ public class movement : MonoBehaviour
 
     void Movement()
     {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
-        if (Mathf.Abs(weapon.GetComponent<shooting>().angle) >= 80f)
+        if (onGround && (Input.GetKey("a") || Input.GetKey("d")))
         {
-            transform.localRotation = Quaternion.Euler(0, 180f, 0);
-            hBar.transform.localRotation = Quaternion.Euler(0, 180f, 0);
-            pTag.transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            playerAnimator.SetBool("Running", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Running", false);
         }
 
-        else
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
+        if (Mathf.Abs(weapon.GetComponent<shooting>().angle) >= 80f)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
             hBar.transform.localRotation = Quaternion.Euler(0, 0, 0);
             pTag.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        else
+        {
+            transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            hBar.transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            pTag.transform.localRotation = Quaternion.Euler(0, 180f, 0);
         }
     }
 }
