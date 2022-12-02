@@ -150,6 +150,8 @@ MonoBehaviour:
   rb: {fileID: 2494243357651619668}
   spawnManager: {fileID: 0}
   target: {fileID: 0}
+  manager: {fileID: 0}
+  scoreValue: 10
   health: 0
   zombieSpeed: 0
   chase: 0

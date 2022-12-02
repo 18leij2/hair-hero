@@ -7,6 +7,8 @@ public class hunt : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject spawnManager;
     public GameObject target;
+    public Manager manager;
+    public int scoreValue;
     public float health;
     public float zombieSpeed;
     private bool zoneDamage = false;
@@ -23,6 +25,7 @@ public class hunt : MonoBehaviour
         rb.mass = 100 * (2f / zombieSpeed);
         spawnManager = GameObject.Find("Spawn Manager");
         target = GameObject.Find("Player");
+        manager = GameObject.Find("Game Manager").GetComponent<Manager>();
     }
 
     void FixedUpdate()
@@ -45,6 +48,7 @@ public class hunt : MonoBehaviour
         if (health <= 0f)
         {
             spawnManager.GetComponent<spawnstuff>().zombieCounter -= 1f;
+            manager.AddScore(scoreValue);
             Destroy(gameObject);
         }
 

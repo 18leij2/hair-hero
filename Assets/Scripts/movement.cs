@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class movement : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class movement : MonoBehaviour
     public float fuel = 1f;
     private bool onGround = false;
     public Rigidbody2D rb;
+    public ParticleSystem particleFx;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        var emission = particleFx.emission;
+        emission.rateOverTime = 0;
     }
 
     // Update is called once per frame
@@ -33,6 +36,12 @@ public class movement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             fuel -= (0.5f *Time.deltaTime);
+            var emission = particleFx.emission;
+            emission.rateOverTime = 50;
+        } else
+        {
+            var emission = particleFx.emission;
+            emission.rateOverTime = 0;
         }
 
         if (onGround)
