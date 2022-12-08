@@ -17,6 +17,7 @@ public class shooting : MonoBehaviour
     private Vector2 cursorHotspot;
     public Sprite[] spriteArray;
     private float Timer = 0.15f;
+    private bool instakill = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class shooting : MonoBehaviour
 
     void Shoot()
     {
+        bulletPrefab.GetComponent<bullet>().instakill = instakill;
         if (weaponSprite.sprite == spriteArray[0])
         {
             player.GetComponent<health>().damageCounter = 0.1f;
@@ -255,5 +257,56 @@ public class shooting : MonoBehaviour
             weaponSprite.sprite = spriteArray[5];
             pistolammo = 2f;
         }
+    }
+
+    IEnumerator unlimitedAmmoHelper(float duration)
+    {
+        float timer = 0;
+        while(timer < duration)
+        {
+            if (weaponSprite.sprite == spriteArray[0])
+            {
+                pistolammo = 8;
+            }
+            else if (weaponSprite.sprite == spriteArray[1])
+            {
+                pistolammo = 3;
+            }
+            else if (weaponSprite.sprite == spriteArray[2])
+            {
+                pistolammo = 18;
+            }
+            else if (weaponSprite.sprite == spriteArray[3])
+            {
+                pistolammo = 12;
+            }
+            else if (weaponSprite.sprite == spriteArray[4])
+            {
+                pistolammo = 3;
+            }
+            else if (weaponSprite.sprite == spriteArray[5])
+            {
+                pistolammo = 2;
+            }
+            ammotxt.text = pistolammo.ToString();
+            yield return new WaitForEndOfFrame();
+            timer += Time.deltaTime;
+        }
+    }
+
+    public void unlimitedAmmo(float duration)
+    {
+        StartCoroutine(unlimitedAmmoHelper(duration));
+    }
+    private IEnumerator InstakillHelper(float duration)
+    {
+        instakill = true;
+        yield return new WaitForSeconds(duration);
+        instakill = false;
+    }
+
+    public void Instakill(float duration)
+    {
+        StartCoroutine(InstakillHelper(duration));
     }
 }

@@ -155,6 +155,10 @@ MonoBehaviour:
   health: 0
   zombieSpeed: 0
   chase: 0
+  drops:
+  - {fileID: 8360252981426435823, guid: 0b7013e77672ca9498516cd46aade198, type: 3}
+  - {fileID: 7783430994384923317, guid: 0bf24dfb5f12fe9498b5273da4383d1c, type: 3}
+  dropChance: 0.05
 --- !u!1 &3564946306118521849
 GameObject:
   m_ObjectHideFlags: 0

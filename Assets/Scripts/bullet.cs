@@ -6,6 +6,7 @@ public class bullet : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float forceSpeed;
+    public bool instakill = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,10 @@ public class bullet : MonoBehaviour
 
         if (col.gameObject.tag == "Enemy")
         {
+            if (instakill)
+            {
+                col.gameObject.GetComponent<hunt>().health = -10000;
+            }
             Destroy(gameObject);
         }
     }

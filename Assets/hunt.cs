@@ -14,6 +14,9 @@ public class hunt : MonoBehaviour
     private bool zoneDamage = false;
     public bool chase;
     private bool stunned;
+    public List<GameObject> drops;
+    // Float between 0 and 1
+    public float dropChance = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,9 +50,7 @@ public class hunt : MonoBehaviour
 
         if (health <= 0f)
         {
-            spawnManager.GetComponent<spawnstuff>().zombieCounter -= 1f;
-            manager.AddScore(scoreValue);
-            Destroy(gameObject);
+            Die();
         }
 
         if (health < 1f && !zoneDamage)
@@ -136,5 +137,17 @@ public class hunt : MonoBehaviour
         stunned = true;
         yield return new WaitForSeconds(time);
         stunned = false;
+    }
+
+    public void Die()
+    {
+        spawnManager.GetComponent<spawnstuff>().zombieCounter -= 1f;
+        manager.AddScore(scoreValue);
+        if (Random.Range(0.0f, 1.0f) < dropChance)
+        {
+            GameObject choose = drops[Random.Range(0, drops.Count)];
+            Instantiate(choose, transform.position, transform.rotation);
+        }
+        Destroy(gameObject);
     }
 }
