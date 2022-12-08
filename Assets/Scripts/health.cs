@@ -8,6 +8,7 @@ public class health : MonoBehaviour
     public float damageCounter;
     private bool zoneDamage = false;
     public GameObject shieldPrefab;
+    public Manager manager;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,9 @@ public class health : MonoBehaviour
 
         if (pHealth <= 0f)
         {
-            Destroy(gameObject);
+            manager.GameOver();
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 
