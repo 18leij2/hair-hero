@@ -11,17 +11,46 @@ public class Manager : MonoBehaviour
     public TextMeshProUGUI finalScore;
     public GameObject gameover;
     public TextMeshProUGUI waveText;
+    public List<GameObject> startList;
+    public GameObject StartScreen;
+    public GameObject InstructionScreen;
+    private bool start = true;
+    private bool instruction = false;
 
     // Start is called before the first frame update
     void Start()
     {
         gameover.SetActive(false);
+
+        foreach (GameObject obj in startList)
+        {
+            obj.SetActive(false);
+        }
+        StartScreen.SetActive(true);
+        InstructionScreen.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         scoreText.text = score.ToString() + " points";
+
+        if (Input.GetKeyDown(KeyCode.Return) && start)
+        {
+            StartScreen.SetActive(false);
+            InstructionScreen.SetActive(true);
+            start = false;
+            instruction = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Return) && instruction)
+        {
+            InstructionScreen.SetActive(false);
+            instruction = false;
+            foreach (GameObject obj in startList)
+            {
+                obj.SetActive(true);
+            }
+        }
     }
 
     public void AddScore(int score)
