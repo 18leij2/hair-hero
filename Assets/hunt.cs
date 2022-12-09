@@ -18,21 +18,54 @@ public class hunt : MonoBehaviour
     // Float between 0 and 1
     public float dropChance = 0.1f;
 
+    public SpriteRenderer spriteRenderer;
+    public Sprite largeZombie;
+    public Sprite smallZombie;
+    private bool isLeft = false;
+
     // Start is called before the first frame update
     void Start()
     {
         health = 1f;
         chase = false;
         zombieSpeed = Random.Range(1f, 4f);
-        transform.localScale = new Vector2(2f / zombieSpeed, 2f / zombieSpeed);
+        transform.localScale = new Vector2(2.5f / zombieSpeed, 2.5f / zombieSpeed);
         rb.mass = 100 * (2f / zombieSpeed);
         spawnManager = GameObject.Find("Spawn Manager");
         target = GameObject.Find("Player");
         manager = GameObject.Find("Game Manager").GetComponent<Manager>();
+
+        // print(transform.localScale.x);
+        if (transform.localScale.x >= 1)
+        {
+            spriteRenderer.sprite = largeZombie;
+        }
+        else if (transform.localScale.x < 1)
+        {
+            spriteRenderer.sprite = smallZombie;
+        }
+
+        if (transform.position.x <= target.transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+            isLeft = true;
+        }
     }
 
     void FixedUpdate()
     {
+        // print(target.transform.position.x);
+        if (transform.position.x <= target.transform.position.x && !isLeft)
+        {
+            spriteRenderer.flipX = true;
+            isLeft = true;
+        }
+        else if (transform.position.x > target.transform.position.x && isLeft)
+        {
+            spriteRenderer.flipX = false;
+            isLeft = false;
+        }
+
         if (!stunned)
         {
             Movement();
