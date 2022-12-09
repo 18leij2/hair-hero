@@ -10,6 +10,7 @@ public class Manager : MonoBehaviour
     public int score = 0;
     public TextMeshProUGUI finalScore;
     public GameObject gameover;
+    public TextMeshProUGUI waveText;
 
     // Start is called before the first frame update
     void Start()
@@ -33,5 +34,10 @@ public class Manager : MonoBehaviour
         Time.timeScale = 0;
         gameover.SetActive(true);
         finalScore.text = "Final Score: " + score.ToString();
+    }
+
+    public void SetWave(int wave)
+    {
+        waveText.text = "Wave " + wave.ToString();
     }
 }

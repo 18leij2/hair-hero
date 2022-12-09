@@ -9,6 +9,12 @@ public class spawnstuff : MonoBehaviour
     public float zombieCounter;
     public float healthCounter;
     private Vector2[] ZombPositions;
+    public int waveZombies = 8;
+    public int waveIncrement = 2;
+    public int wave = 1;
+    private int zombiesSpawnedThisWave = 0;
+    public Manager manager;
+    public GameObject hairgelPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +23,8 @@ public class spawnstuff : MonoBehaviour
         healthCounter = 0f;
         InvokeRepeating("spawnZombies", 1.0f, 1.0f);
         InvokeRepeating("spawnHealth", 1.0f, 1.0f);
+
+        manager.SetWave(wave);
     }
 
     // Update is called once per frame
@@ -34,10 +42,11 @@ public class spawnstuff : MonoBehaviour
             new Vector2(Random.Range(26, 33), Random.Range(13, 17))
         };
 
-        if (zombieCounter < 10f)
+        if (zombieCounter < 10f && zombiesSpawnedThisWave < (waveZombies + (waveIncrement * (wave - 1))))
         {
             Instantiate(zombiePrefab, ZombPositions[Random.Range(0, ZombPositions.Length)], zombiePrefab.transform.rotation);
             zombieCounter += 1f;
+            zombiesSpawnedThisWave += 1;
         }
     }
 
@@ -48,5 +57,21 @@ public class spawnstuff : MonoBehaviour
             Instantiate(healthPrefab, new Vector3(Random.Range(-8f,76f),Random.Range(-3f,9f),0f), healthPrefab.transform.rotation);
             healthCounter += 1f;
         }
+    }
+
+    public void RemoveZombie(Transform location)
+    {
+        zombieCounter -= 1f;
+        if (zombieCounter == 0 && zombiesSpawnedThisWave >= (waveZombies + (waveIncrement * (wave - 1))))
+        {
+            Instantiate(hairgelPrefab, location.position, location.rotation);
+        }
+    }
+
+    public void NextWave()
+    {
+        wave += 1;
+        zombiesSpawnedThisWave = 0;
+        manager.SetWave(wave);
     }
 }

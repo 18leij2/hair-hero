@@ -141,7 +141,8 @@ public class hunt : MonoBehaviour
 
     public void Die()
     {
-        spawnManager.GetComponent<spawnstuff>().zombieCounter -= 1f;
+        spawnManager.GetComponent<spawnstuff>().RemoveZombie(transform);
+
         manager.AddScore(scoreValue);
         if (Random.Range(0.0f, 1.0f) < dropChance)
         {
